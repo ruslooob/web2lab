@@ -11,17 +11,40 @@
 </head>
 
 <body>
-    <div class="sign-in modal">
-        <div class="sign-in__content modal__content">
+    <div class="sign-in__wrapper modal__wrapper">
+        <div class="sign-in modal">
             <span class="sign-in__close modal__close">&times;</span>
-            <p>Некоторый текст в модальном..</p>
+            <div class="sign-in__content">
+                <div class="title">Вход</div>
+                <form action="#" method="POST">
+                    <input type="text" placeholder="Логин">
+                    <input type="password" placeholder="Пароль">
+                    <button class="sign-in-btn btn" type="submit">Войти</button>
+                </form>
+            </div>
         </div>
     </div>
-    <div class="sign-up modal">
-        <div class="sign-up__content modal__content">
+    <div class="sign-up__wrapper modal__wrapper">
+        <div class="sign-up modal">
             <span class="sign-up__close modal__close">&times;</span>
-            <p>Некоторый тест в меню открыть</p>
+            <div class="sign-up__content">
+                <div class="title">Регистрация</div>
+                <form action="#" method="POST">
+                    <input type="text" placeholder="Логин">
+                    <input type="password" placeholder="Пароль">
+                    <input type="password" placeholder="Повторите пароль">
+                    <input type="email" placeholder="Email">
+                    <input type="tel" placeholder="Телефон">
+                    <div class="checkbox__wrapper">
+                        <input type="checkbox" name="agreeWitchPrivatePolicy">
+                        <span>Согласие на обработку</span>
+                    </div>
+                    <button class="sign-up-btn btn" type="submit">Зарегистрироваться</button>
+                </form>
+
+            </div>
         </div>
+    </div>
     </div>
     <div class="container">
         <header class="header">
