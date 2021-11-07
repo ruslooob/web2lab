@@ -1,0 +1,145 @@
+@import url("reset.css");
+
+:root {
+    --accent-color: #f8e596; /* f7de7a */
+    --background-color: #6da7e6;
+}
+
+/* modal windows */
+.modal {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed; /* Оставаться на месте */
+    z-index: 1; /* Сидеть на вершине */
+    left: 0;
+    top: 0;
+    /* width: 100%; Полная ширина */
+    /* height: 100%; Полная высота */
+    overflow: auto; /* Включите прокрутку, если это необходимо */
+    background-color: rgb(0, 0, 0); /* Цвет запасной вариант */
+    background-color: rgba(0, 0, 0, 0.4); /* Черный с непрозрачностью */
+}
+
+.modal__content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% сверху и по центру */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Может быть больше или меньше, в зависимости от размера экрана */
+}
+
+.modal__close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.header {
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--background-color);
+}
+
+.header__logo {
+    text-align: center;
+    flex: 0 1 200px;
+    transition: 0.3s linear all;
+}
+
+.header__logo a:hover {
+    color: var(--accent-color);
+}
+
+.header__logo a {
+    color: white;
+    font-size: 30px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.header__buttons {
+    flex: 0 1 250px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header__sign-up-btn {
+    margin-left: 10px;
+}
+
+body {
+    height: 100vh;
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+    background-color: var(--background-color);
+}
+
+.container {
+    width: 1100px;
+    margin: 0 auto;
+}
+
+/*button template*/
+.btn {
+    padding: 6px 15px;
+    background-color: white;
+    border-radius: 20px;
+    font-weight: 500;
+    transition: 0.3s linear all;
+    font-family: "Montserrat", sans-serif;
+    border: none;
+}
+
+.btn:hover {
+    background-color: var(--accent-color);
+}
+
+.btn a {
+    color: black;
+    text-decoration: none;
+}
+
+.title {
+    /* font-family: 'Montserrat', sans-serif; */
+    font-size: 40px;
+    font-weight: 500;
+    color: white;
+}
+
+input {
+    padding: 8px;
+    padding-left: 10px;
+    border-radius: 20px;
+    transition: 0.1s linear all;
+    border-color: var(--background-color);
+}
+
+.sign-in-link,
+.sign-up-link,
+.sign-in-link a,
+.sign-up-link a {
+    color: white;
+}
+
+.sign-in-link a:hover,
+.sign-up-link a:hover {
+    color: var(--accent-color);
+}
+
+input:hover {
+    opacity: 0.9;
+}
+
+input,
+button {
+    outline: none;
+}
