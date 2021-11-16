@@ -2,7 +2,7 @@
 
 :root {
     --accent-color: #f8e596;
-    --background-color:#7fb6ec; /*#7fb6ec*/
+    --background-color: #7fb6ec; /*#7fb6ec*/
 }
 
 body {
@@ -30,8 +30,6 @@ button {
     outline: none;
 }
 
-
-
 /* modal window */
 .modal__wrapper {
     position: fixed;
@@ -54,7 +52,7 @@ button {
 
 .modal__close {
     position: relative;
-    
+
     float: right;
     font-size: 40px;
     font-weight: bold;
@@ -177,14 +175,11 @@ form {
     left: 3px;
 }
 
-
-
-
 .img {
     width: 300px;
     height: 300px;
     object-fit: cover;
-    background: #f3f3f3
+    background: #f3f3f3;
 }
 
 .main-content {
@@ -196,7 +191,7 @@ form {
 .card {
     flex: 0 0 33.3%;
     margin: 0 0 50px 0;
-    transition: all .5s linear;
+    transition: all 0.5s linear;
 }
 
 .card:hover {
@@ -204,10 +199,14 @@ form {
     cursor: pointer;
 }
 
-
 .card__info {
     width: 300px;
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
+}
+
+
+input:invalid {
+    background-color: rgb(252, 204, 204);
 }
