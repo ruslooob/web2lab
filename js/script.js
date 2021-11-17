@@ -1,16 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
     // навешивание событий на модальные окна
-    var signInWrapper = document.querySelector(".sign-in__wrapper")
-    var signInBtn = document.querySelector(".header__sign-in-btn");
-    var closeSignInBtn = document.querySelector(".sign-in__close");
+    const signInWrapper = document.querySelector(".sign-in__wrapper");
+    const signInBtn = document.querySelector(".header__sign-in-btn");
+    const closeSignInBtn = document.querySelector(".sign-in__close");
 
 
     signInBtn.onclick = () => signInWrapper.style.display = "block";
     closeSignInBtn.onclick = () => signInWrapper.style.display = "none";
 
-    var signUpWrapper = document.querySelector(".sign-up__wrapper");
-    var signUpBtn = document.querySelector(".header__sign-up-btn");
-    var closeSignUpBtn = document.querySelector(".sign-up__close");
+    const signUpWrapper = document.querySelector(".sign-up__wrapper");
+    const signUpBtn = document.querySelector(".header__sign-up-btn");
+    const closeSignUpBtn = document.querySelector(".sign-up__close");
 
 
     signUpBtn.onclick = () => signUpWrapper.style.display = "block";
@@ -28,16 +28,16 @@ document.addEventListener("DOMContentLoaded", function () {
         card.addEventListener("mouseout", () => card.querySelector(".card__info").style.color = "white");
     }
 
-    var signUpLogin = get(".sign-up__login");
-    var signUpPassword = get(".sign-up__password");
-    var signUpRepeatPassword = get(".sign-up__repeat-password");
-    var signUpEmail = get(".sign-up__email");
-    var signUpPhone = get(".sign-up__phone");
+    const signUpLogin = get(".sign-up__login");
+    const signUpPassword = get(".sign-up__password");
+    const signUpRepeatPassword = get(".sign-up__repeat-password");
+    const signUpEmail = get(".sign-up__email");
+    const signUpPhone = get(".sign-up__phone");
 
 
     signUpLogin.addEventListener("input", function (e) {
-        var _this = e.target;
-        var validity = _this.validity;
+        const _this = e.target;
+        const validity = _this.validity;
 
         if (validity.valueMissing) {
             _this.setCustomValidity("Поле обязательно для заполнения");
@@ -55,8 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     signUpPassword.addEventListener("input", function (e) {
-        var _this = e.target;
-        var validity = _this.validity;
+        const _this = e.target;
+        const validity = _this.validity;
 
         if (validity.valueMissing) {
             _this.setCustomValidity("Поле обязательно для заполнения");
@@ -76,8 +76,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     signUpRepeatPassword.addEventListener("input", function (e) {
-        var _this = e.target;
-        var validity = _this.validity;
+        const _this = e.target;
+        const validity = _this.validity;
 
         if (validity.valueMissing) {
             _this.setCustomValidity("Поле обязательно для заполнения");
@@ -96,8 +96,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     signUpEmail.addEventListener("input", function (e) {
-        var _this = e.target;
-        var validity = _this.validity;
+        const _this = e.target;
+        const validity = _this.validity;
         console.log(validity);
 
         if (validity.valueMissing) {
@@ -115,8 +115,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     signUpPhone.addEventListener("input", function (e) {
-        var _this = e.target;
-        var validity = _this.validity;
+        const _this = e.target;
+        const validity = _this.validity;
         console.log(validity);
 
         if (validity.valueMissing) {
@@ -138,11 +138,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //
 
-    var signInLogin = get(".sign-in__login");
+    const signInLogin = get(".sign-in__login");
 
     signInLogin.addEventListener("input", function (e) {
-        var _this = e.target;
-        var validity = _this.validity;
+        const _this = e.target;
+        const validity = _this.validity;
 
         if (validity.valueMissing) {
             _this.setCustomValidity("Поле обязательно для заполнения");
@@ -158,11 +158,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    var signInPassword = get(".sign-up__password");
+    const signInPassword = get(".sign-up__password");
 
     signInPassword.addEventListener("input", function (e) {
-        var _this = e.target;
-        var validity = _this.validity;
+        const _this = e.target;
+        const validity = _this.validity;
 
         if (validity.valueMissing) {
             _this.setCustomValidity("Поле обязательно для заполнения");
