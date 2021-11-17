@@ -28,11 +28,11 @@ document.addEventListener("DOMContentLoaded", function () {
         card.addEventListener("mouseout", () => card.querySelector(".card__info").style.color = "white");
     }
 
-    const signUpLogin = get(".sign-up__login");
-    const signUpPassword = get(".sign-up__password");
-    const signUpRepeatPassword = get(".sign-up__repeat-password");
-    const signUpEmail = get(".sign-up__email");
-    const signUpPhone = get(".sign-up__phone");
+    const signUpLogin = docGet(".sign-up__login");
+    const signUpPassword = docGet(".sign-up__password");
+    const signUpRepeatPassword = docGet(".sign-up__repeat-password");
+    const signUpEmail = docGet(".sign-up__email");
+    const signUpPhone = docGet(".sign-up__phone");
 
 
     signUpLogin.addEventListener("input", function (e) {
@@ -47,8 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
             _this.setCustomValidity("Введенной значение должно содержать минимум 5 символов");
         } else if (validity.patternMismatch) {
             _this.setCustomValidity("Неверный формат ввода. Доступны только английские буквы.")
-        }
-        else {
+        } else {
             _this.setCustomValidity("");
         }
 
@@ -89,8 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
             _this.setCustomValidity("Пароли не совпадают")
         } else if (validity.patternMismatch) {
             _this.setCustomValidity("Неверный формат ввода. Доступны только английские буквы, цифры и знак _")
-        }
-        else {
+        } else {
             _this.setCustomValidity("");
         }
     });
@@ -117,7 +115,6 @@ document.addEventListener("DOMContentLoaded", function () {
     signUpPhone.addEventListener("input", function (e) {
         const _this = e.target;
         const validity = _this.validity;
-        console.log(validity);
 
         if (validity.valueMissing) {
             _this.setCustomValidity("Поле обязательно для заполнения");
@@ -134,11 +131,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-
-
     //
 
-    const signInLogin = get(".sign-in__login");
+    const signInLogin = docGet(".sign-in__login");
 
     signInLogin.addEventListener("input", function (e) {
         const _this = e.target;
@@ -152,13 +147,12 @@ document.addEventListener("DOMContentLoaded", function () {
             _this.setCustomValidity("Введенной значение должно содержать минимум 5 символов");
         } else if (validity.patternMismatch) {
             _this.setCustomValidity("Неверный формат ввода. Доступны только английские буквы.")
-        }
-        else {
+        } else {
             _this.setCustomValidity("");
         }
     });
 
-    const signInPassword = get(".sign-up__password");
+    const signInPassword = docGet(".sign-up__password");
 
     signInPassword.addEventListener("input", function (e) {
         const _this = e.target;
@@ -172,13 +166,33 @@ document.addEventListener("DOMContentLoaded", function () {
             _this.setCustomValidity("Введенной значение должно содержать минимум 5 символов");
         } else if (validity.patternMismatch) {
             _this.setCustomValidity("Неверный формат ввода. Доступны только английские буквы, цифры и знак _")
-        }
-        else {
+        } else {
             _this.setCustomValidity("");
         }
     });
 
-    function get(selector) {
+
+    const signInForm = docGet(".sign-in__form");
+
+    signInForm.addEventListener("submit", function (e) {
+        console.log(signInLogin.value);
+        // пароль не выводится
+        console.log(signInPassword.value);
+        e.preventDefault();
+    })
+
+    const signUpForm = docGet(".sign-up__form");
+
+    signUpForm.addEventListener("submit", function (e) {
+        console.log(signUpLogin.value);
+        console.log(signUpPassword.value);
+        console.log(signUpRepeatPassword.value);
+        console.log(signUpEmail.value);
+        console.log(signUpPhone.value);
+        e.preventDefault();
+    });
+
+    function docGet(selector) {
         return document.querySelector(selector);
     }
 
