@@ -2,7 +2,7 @@
 
 :root {
     --accent-color: #f8e596;
-    --background-color: #7fb6ec; /*#7fb6ec*/
+    --background-color: rgba(127, 182, 236, 0.65); /*#7fb6ec*/
 }
 
 body {
@@ -45,7 +45,7 @@ button {
 .modal {
     margin: 100px auto;
     max-width: 325px;
-    background-color: #7fb6ec;
+    background-color: var(--background-color);
     border-radius: 20px;
     padding: 10px;
 }
@@ -71,12 +71,16 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--background-color);
+    background-color: inherit/*var(--background-color)*/;
 }
 
 .header__logo {
     text-align: center;
     /* flex: 0 1 200px; */
+    transition: 0.3s linear all;
+}
+
+.header__logo a {
     transition: 0.3s linear all;
 }
 
@@ -204,9 +208,13 @@ form {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
+    transition: 0.3s linear all;
 }
-
 
 input:invalid {
     background-color: rgb(252, 204, 204);
+}
+
+/* extra-large screens */
+@media screen and (max-width: 1200px) {
 }
