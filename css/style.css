@@ -1,5 +1,9 @@
 @import url("reset.css");
 
+* {
+    box-sizing: border-box;
+}
+
 :root {
     --accent-color: #f8e596;
     --background-color: rgba(127, 182, 236, 0.7); /*#7fb6ec*/
@@ -189,7 +193,6 @@ form {
 }
 
 .card {
-    flex: 0 1 calc(25% - 1em);
     align-items: baseline;
     transition: all 0.5s linear;
 }
@@ -199,7 +202,9 @@ img {
     height: 250px;
     object-fit: cover;
     background: #f2f3f3;
+    border-radius: 3px;
 }
+
 
 .card:hover {
     transform: scale(1.02);
@@ -224,14 +229,45 @@ input:invalid {
     }
 }
 
+.footer {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    background-color: rgba(127, 182, 236, 0.75);
+}
+
+.footer__author {
+    margin-top: 10px;
+}
+
+.footer__contacts {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.footer__author, .footer__contacts {
+    text-align: center;
+}
+
+.icon {
+    width: 25px;
+    height: 25px;
+    background-color: inherit;
+    margin-left: 10px;
+}
+
+
+
 /* extra-large screens */
 @media screen and (max-width: 1200px) {
     .header {
         padding-left: 15px;
         padding-right: 15px;
     }
-
-
 }
 
 
