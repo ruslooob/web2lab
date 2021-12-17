@@ -1,42 +1,31 @@
-<?php
-require 'components/DB.php';
+<?php require '../models/DbModel.php';
+require "../models/ScreenshotModel.php"
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css">
     <title>Shoot</title>
 </head>
-
 <body>
-<?php require "layouts/sign-in-modal.php" ?>
-<?php require "layouts/sign-up-modal.php" ?>
-
+<?php require "../resources/templates/modal.php" ?>
 <div class="wrapper">
     <div class="container">
-        <?php require "layouts/header.php" ?>
+        <?php require "../resources/templates/header.php" ?>
 
         <?php
-        $db = new DB();
-        $sql = <<< END
-                SELECT id, uuid, src, upload_date
-                FROM screenshot
-                ORDER BY id DESC 
-                LIMIT 9
-                END;
-
-        $screenshots = $db->fetchAll($sql);
+        $screenshotModel = new ScreenshotModel();
+        $screenshots = $screenshotModel->getFirstScreenshots();
         ?>
         <main class="main-content">
             <div class="cards">
                 <?php foreach ($screenshots as $screenshot): ?>
                     <div class="card">
-                        <a href="/layouts/detail_screenshot.php?uuid=<?php echo $screenshot['uuid'] ?>">
+                        <a href="/public/detail.php?uuid=<?php echo $screenshot['uuid'] ?>">
                             <img src="data:image/jpeg;base64, <?php echo base64_encode($screenshot['src']) ?>"
                                  height="300px" width="250px"/>
                             <div class="card__info">
@@ -52,11 +41,11 @@ require 'components/DB.php';
                last-screenshot-id="<?= $lastId ?>">
                 Показать еще
             </a>
-            <script src="/js/load_more.js"></script>
+            <script src="/public/js/load_more.js"></script>
         </main>
     </div>
-    <?php require "layouts/footer.php" ?>
+    <?php require "../resources/templates/footer.php" ?>
 </div>
 
-<script src="js/script.js"></script>
+<script src="/public/js/script.js"></script>
 </body>

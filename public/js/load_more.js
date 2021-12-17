@@ -3,7 +3,7 @@ const btnLoadMore = document.querySelector('.btn-load-more');
 btnLoadMore.addEventListener('click', function (e) {
         const cards = document.querySelector('.cards')
         let offset = parseInt(e.target.getAttribute("last-screenshot-id"))
-        const url = `/load_more.php?offset=${offset}`
+        const url = `/resources/scripts/load_more.php?offset=${offset}`
         fetch(url)
             .then(response => response.text())
             .then(result => {
