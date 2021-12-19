@@ -2,8 +2,7 @@
 require $_SERVER['DOCUMENT_ROOT'] . '/models/ScreenshotModel.php';
 $offset = $_GET['offset'];
 
-$screenshotModel = new ScreenshotModel();
-$screenshots = $screenshotModel->getScreenshotsByOffset($offset);
+$screenshots = (new ScreenshotModel())->getScreenshotsByOffset($offset);
 ?>
 
 <?php foreach ($screenshots as $screenshot): ?>

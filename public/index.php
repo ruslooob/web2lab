@@ -1,5 +1,8 @@
+<?php session_start(); ?>
+
+
 <?php require '../models/DbModel.php';
-require "../models/ScreenshotModel.php"
+require "../models/ScreenshotModel.php";
 ?>
 
 <!DOCTYPE html>
@@ -17,10 +20,7 @@ require "../models/ScreenshotModel.php"
     <div class="container">
         <?php require "../resources/templates/header.php" ?>
 
-        <?php
-        $screenshotModel = new ScreenshotModel();
-        $screenshots = $screenshotModel->getFirstScreenshots();
-        ?>
+        <?php $screenshots = (new ScreenshotModel())->getFirstScreenshots(); ?>
         <main class="main-content">
             <div class="cards">
                 <?php foreach ($screenshots as $screenshot): ?>

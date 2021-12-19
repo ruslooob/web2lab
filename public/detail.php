@@ -2,7 +2,7 @@
 
 <?php
 require '../models/ScreenshotModel.php';
-$uuid = intval($_GET['uuid']);
+$uuid = $_GET['uuid'];
 ?>
 
 <!DOCTYPE html>
@@ -17,8 +17,7 @@ $uuid = intval($_GET['uuid']);
 </head>
 <body>
 <?php
-$screenshotModel = new ScreenshotModel();
-$screenshot = $screenshotModel->getScreenshotByUUID($uuid);
+$screenshot = (new ScreenshotModel())->getScreenshotByUUID($uuid);
 ?>
 <?php require "../resources/templates/modal.php" ?>
 

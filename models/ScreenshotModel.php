@@ -26,9 +26,10 @@ class ScreenshotModel extends DbModel
             SELECT description, upload_date, src, login, uuid
             FROM screenshot s
             LEFT JOIN user ON s.user_id = user.id
-            WHERE uuid = $uuid
+            WHERE uuid = ?
         END;
         $sth = $this->dbh->prepare($sql);
+        $sth->bindValue(1, $uuid);
         $sth->execute();
         return $sth->fetch(PDO::FETCH_ASSOC);
     }
@@ -58,6 +59,4 @@ class ScreenshotModel extends DbModel
     {
         $this->pageSize = $pageSize;
     }
-
-
 }
