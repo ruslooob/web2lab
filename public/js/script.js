@@ -133,8 +133,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    //
-
     const signInLogin = docGet('.sign-in__login');
 
     signInLogin.addEventListener('input', function (e) {
@@ -182,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch('/auth.php', {
             method: 'POST',
             body: authForm
-        })
+        }).then(response => response.json())
             .then(result => {
                 if (result.errors) {
                     // если ошибка
@@ -206,11 +204,13 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(result => {
                 if (result.errors) {
-                    alert(errors)
+                    alert(result.errors);
                 } else {
                     window.location.reload();
                 }
-            }).catch(error => console.log(error));
+            }).catch(error => console.log(error)
+        )
+        ;
     });
 
 

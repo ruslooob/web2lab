@@ -1,36 +1,52 @@
 <?php
-echo $_POST['login'] . ' ' . $_POST['password'];
+require "models/UserModel.php";
 
-function redirectIfUserLogged($user_var = 'user_id', $redirect_to = '/')
-{
-    session_start();
+header('Content-Type: application/json');
 
-    if ($_SESSION[$user_var]) {
-        header("Location: " . $redirect_to);
-    }
+$login = $_POST['login'];
+$password = $_POST['password'];
+$repeatPassword = $_POST['repeatPassword'];
+$email = $_POST['email'];
+$phone = $_POST['phone'];
+$isAgreeWithPrivatePolicy = $_POST['isAgreeWithPrivatePolicy'];
+
+echo "$login $password $repeatPassword $email $phone $isAgreeWithPrivatePolicy";
+
+$userModel = new UserModel();
+
+if (strlen($login) < 5 || strlen($login) > 15) {
+    $errors[] = "Длина логина должна быть больше 4 и меньше 16 символов";
 }
 
-function getUserIfUserLogged()
-{
-    session_start();
-
-    if ($_SESSION['user_id']) {
-        $user_id = (int)$_SESSION['user_id'];
-
-        require_once "models/UserModel.php";
-
-        $user_obj = new UserModel();
-        return $user_obj->getUserById($user_id);
-    }
-
-    return false;
+if ($userModel->getUserByLogin($login) != false) {
+    $errors[] = "Пользователь с таким логином уже существует";
 }
 
-function redirectIfUserNotLogged($user_var = 'user_id', $redirect_to = '/')
-{
-    session_start();
-
-    if (!$_SESSION[$user_var]) {
-        header("Location: " . $redirect_to);
-    }
+if (strlen($password) < 5 || strlen($password) > 15) {
+    $errors[] = "Длина пароля должна быть больше 4 и меньше 16 символов.";
 }
+
+if (!strcmp($password, $repeatPassword) == 0) {
+    $errors[] = "Пароли не совпадают!";
+}
+
+if ($isAgreeWithPrivatePolicy != 'on') {
+    $errors[] = "Соглашение обязательно к принятию";
+}
+
+if (!empty($errors)) {
+    echo json_encode(['errors' => $errors]);
+    die();
+}
+
+$userId = $userModel->save($login, $email, $phone, $password);
+
+if ($userId == false) {
+    echo "Пользователь не сохранен!";
+}
+
+session_start();
+$_SESSION["userId"] = $userModel->getUserIdByLogin($login);
+$_SESSION["userLogin"] = $login;
+
+echo json_encode(['success' => true], JSON_UNESCAPED_UNICODE);

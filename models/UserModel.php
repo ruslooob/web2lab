@@ -51,7 +51,7 @@ class UserModel extends DbModel
     public function getUserIdByLogin(string $login): int
     {
         $sql = <<< END
-            SELECT * 
+            SELECT *
             FROM user
             WHERE login = ?
         END;
@@ -86,27 +86,28 @@ class UserModel extends DbModel
         return $sth->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function save($name, $email, $phone, $password): bool
+    public function save($login, $email, $phone, $password): int|bool
     {
         try {
-            $save_name = htmlspecialchars($name);
-            $save_email = htmlspecialchars($email);
-            $save_phone = htmlspecialchars($phone);
-
-            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+            $saveLogin = htmlspecialchars($login);
+            $saveEmail = htmlspecialchars($email);
+            $savePhone = htmlspecialchars($phone);
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
             $sql = <<< END
-                INSERT INTO user(name, email, phone, password)
-                values ($save_name, $save_email, $save_phone, $password_hash)
+                INSERT INTO user(login, email, phone, password)
+                values (?, ?, ?, ?)
             END;
-
             $sth = $this->dbh->prepare($sql);
-
+            $sth->bindValue(1, $saveLogin);
+            $sth->bindValue(2, $saveEmail);
+            $sth->bindValue(3, $savePhone);
+            $sth->bindValue(4, $passwordHash);
             $sth->execute();
         } catch (PDOException $e) {
             error_log($e->getMessage());
             return false;
         }
-        return true;
+        return $this->getUserIdByLogin($login);
     }
 }

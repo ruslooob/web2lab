@@ -116,6 +116,10 @@ button {
     justify-content: space-between;
 }
 
+.header__buttons p {
+    margin-top: 5px;
+}
+
 .header__sign-up-btn {
     margin-left: 10px;
 }
@@ -299,6 +303,12 @@ input:invalid {
     color: black;
     cursor: pointer;
 }
+
+.exit-btn {
+    text-decoration: none;
+    color: black;
+}
+
 @media screen and (max-width: 576px) {
     .header {
         flex-direction: column;
