@@ -43,6 +43,7 @@ $userId = $userModel->save($login, $email, $phone, $password);
 
 if ($userId == false) {
     echo "Пользователь не сохранен!";
+    die();
 }
 
 session_start();

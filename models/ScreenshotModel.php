@@ -50,6 +50,23 @@ class ScreenshotModel extends DbModel
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+    function saveScreenshot($src, $extension, $userId, $description)
+    {
+        $uuid = uniqid();
+        $sql = <<< END
+            INSERT INTO screenshot(upload_date, uuid, src, extension, user_id, description)
+            VALUES(NOW(), :uuid, :src, :extension, :userId, :description); 
+        END;
+        $sth = $this->dbh->prepare($sql);
+        $sth->bindParam(":uuid", $uuid);
+        $sth->bindParam(":src", $src);
+        $sth->bindParam(":extension", $extension);
+        $sth->bindParam(":userId", $userId);
+        $sth->bindParam(":description", $description);
+        $sth->execute();
+    }
+
     /**
      * @param int $pageSize
      * размер страницы при выводе

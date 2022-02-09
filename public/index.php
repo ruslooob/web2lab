@@ -3,7 +3,6 @@
 
 <?php require '../models/DbModel.php';
 require "../models/ScreenshotModel.php";
-//print_r($_SESSION)
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +19,6 @@ require "../models/ScreenshotModel.php";
 <div class="wrapper">
     <div class="container">
         <?php require "../resources/templates/header.php" ?>
-
         <?php $screenshots = (new ScreenshotModel())->getFirstScreenshots(); ?>
         <main class="main-content">
             <div class="cards">

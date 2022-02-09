@@ -5,7 +5,7 @@
             <button class="header__sign-in-btn btn">Войти</button>
             <button class="header__sign-up-btn btn">Зарегистрироваться</button>
         <?php else: ?>
-            <p>Привет <?= $_SESSION['userLogin'] ?></p>
+            <a class="btn" href="/resources/templates/load_file_form.php">Добавить</a>
             <a class="btn exit-btn" href="/logout.php">Выход</a>
         <?php endif; ?>
     </div>
