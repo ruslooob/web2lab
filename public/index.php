@@ -1,7 +1,8 @@
 <?php session_start(); ?>
 
 
-<?php require '../models/DbModel.php';
+<?php
+require '../models/DbModel.php';
 require "../models/ScreenshotModel.php";
 ?>
 
@@ -11,7 +12,7 @@ require "../models/ScreenshotModel.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>Shoot</title>
 </head>
 <body>
@@ -24,7 +25,7 @@ require "../models/ScreenshotModel.php";
             <div class="cards">
                 <?php foreach ($screenshots as $screenshot): ?>
                     <div class="card">
-                        <a href="/public/detail.php?uuid=<?php echo $screenshot['uuid'] ?>">
+                        <a href="detail.php?uuid=<?php echo $screenshot['uuid'] ?>">
                             <img src="data:image/jpeg;base64, <?php echo base64_encode($screenshot['src']) ?>"
                                  height="300px" width="250px"/>
                             <div class="card__info">
@@ -40,11 +41,10 @@ require "../models/ScreenshotModel.php";
                last-screenshot-id="<?= $lastId ?>">
                 Показать еще
             </a>
-            <script src="/public/js/load_more.js"></script>
+            <script src="js/load_more.js"></script>
         </main>
     </div>
     <?php require "../resources/templates/footer.php" ?>
 </div>
-
-<script src="/public/js/script.js"></script>
+<script src="js/script.js"></script>
 </body>
