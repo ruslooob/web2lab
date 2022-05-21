@@ -1,5 +1,8 @@
 <?php
-require "models/UserModel.php";
+
+
+use App\Model\UserModel;
+
 header('Content-Type: application/json');
 
 $errors = [];

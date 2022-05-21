@@ -1,6 +1,9 @@
 <?php
 
-require "DbModel.php";
+namespace App\Model;
+
+use PDO;
+use PDOException;
 
 class UserModel extends DbModel
 {
@@ -8,7 +11,7 @@ class UserModel extends DbModel
     {
         $sql = <<< END
             SELECT * 
-            FROM user
+            FROM users
             WHERE id = $id
         END;
         $sth = $this->dbh->prepare($sql);
@@ -16,12 +19,11 @@ class UserModel extends DbModel
         return $sth->fetch();
     }
 
-    // fixme
     public function getUserByEmail(string $email)
     {
         $sql = <<< END
             SELECT * 
-            FROM user
+            FROM users
             WHERE email = $email
         END;
         $sth = $this->dbh->prepare($sql);
@@ -52,7 +54,7 @@ class UserModel extends DbModel
     {
         $sql = <<< END
             SELECT *
-            FROM user
+            FROM users
             WHERE login = ?
         END;
         $sth = $this->dbh->prepare($sql);
@@ -65,10 +67,37 @@ class UserModel extends DbModel
     {
         $sql = <<< END
             SELECT * 
-            FROM user
-            WHERE email = $email
+            FROM users
+            WHERE email = ?
         END;
         $sth = $this->dbh->prepare($sql);
+        $sth->bindValue(1, $email);
+        $sth->execute();
+        return $sth->fetch(PDO::FETCH_ASSOC) === false;
+    }
+
+    public function isLoginFree(string $login): bool
+    {
+        $sql = <<< END
+            SELECT * 
+            FROM users
+            WHERE login = ?
+        END;
+        $sth = $this->dbh->prepare($sql);
+        $sth->bindValue(1, $login);
+        $sth->execute();
+        return $sth->fetch(PDO::FETCH_ASSOC) === false;
+    }
+
+    public function isPhoneFree(string $phone): bool
+    {
+        $sql = <<< END
+            SELECT * 
+            FROM users
+            WHERE phone = ?
+        END;
+        $sth = $this->dbh->prepare($sql);
+        $sth->bindValue(1, $phone);
         $sth->execute();
         return $sth->fetch(PDO::FETCH_ASSOC) === false;
     }
@@ -77,7 +106,7 @@ class UserModel extends DbModel
     {
         $sql = <<< END
             SELECT * 
-            FROM user
+            FROM users
             WHERE login = ?
         END;
         $sth = $this->dbh->prepare($sql);
@@ -95,13 +124,13 @@ class UserModel extends DbModel
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
             $sql = <<< END
-                INSERT INTO user(login, email, phone, password)
+                INSERT INTO users(login, email, phone, password)
                 values (?, ?, ?, ?)
             END;
             $sth = $this->dbh->prepare($sql);
             $sth->bindValue(1, $saveLogin);
             $sth->bindValue(2, $saveEmail);
-            $sth->bindValue(3, $savePhone);
+            $sth->bindValue(3, strcmp($savePhone, '') === 0 ? null : $savePhone);
             $sth->bindValue(4, $passwordHash);
             $sth->execute();
         } catch (PDOException $e) {

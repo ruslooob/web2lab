@@ -1,6 +1,8 @@
 <?php
 
-require_once "DbModel.php";
+namespace App\Model;
+
+use PDO;
 
 class ScreenshotModel extends DbModel
 {
@@ -11,7 +13,7 @@ class ScreenshotModel extends DbModel
     {
         $sql = <<< END
                 SELECT id, uuid, src, upload_date
-                FROM screenshot
+                FROM screenshots
                 ORDER BY id DESC
                 LIMIT $this->pageSize
         END;
@@ -24,8 +26,8 @@ class ScreenshotModel extends DbModel
     {
         $sql = <<< END
             SELECT description, upload_date, src, login, uuid
-            FROM screenshot s
-            LEFT JOIN user ON s.user_id = user.id
+            FROM screenshots s
+            LEFT JOIN users ON s.user_id = users.id
             WHERE uuid = ?
         END;
         $sth = $this->dbh->prepare($sql);
@@ -39,8 +41,8 @@ class ScreenshotModel extends DbModel
     {
         $sql = <<< END
             SELECT s.id, uuid, src, upload_date, description, login
-            FROM screenshot s
-                LEFT JOIN user u ON s.user_id = u.id
+            FROM screenshots s
+                LEFT JOIN users u ON s.user_id = u.id
             WHERE s.id < $offset
             ORDER BY s.id DESC
             LIMIT $this->pageSize;
@@ -55,7 +57,7 @@ class ScreenshotModel extends DbModel
     {
         $uuid = uniqid();
         $sql = <<< END
-            INSERT INTO screenshot(upload_date, uuid, src, extension, user_id, description)
+            INSERT INTO screenshots(upload_date, uuid, src, extension, user_id, description)
             VALUES(NOW(), :uuid, :src, :extension, :userId, :description); 
         END;
         $sth = $this->dbh->prepare($sql);

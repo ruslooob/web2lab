@@ -1,0 +1,34 @@
+screenshot_index:
+  path: /screenshots
+  controller: App\Controller\ScreenshotController::index
+  methods: GET
+
+screenshot_detail:
+  path: /screenshots/screenshot/{uuid}
+  controller: App\Controller\ScreenshotController::show
+  methods: GET
+
+add_screenshot_form:
+  path: /screenshots/show-add-form
+  controller: App\Controller\ScreenshotController::showAddForm
+  methods: GET
+
+add_screenshot:
+  path: /screenshots/add
+  controller: App\Controller\ScreenshotController::add
+  methods: POST
+
+register:
+  path: /register
+  controller: App\Controller\RegistrationController::register
+  methods: [GET, POST]
+
+sign_in:
+    path: /login
+    controller: App\Controller\LoginController::login
+    methods: POST
+
+logout:
+  path: /logout
+  controller: App\Controller\LoginController::logout
+  methods: GET

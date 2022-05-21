@@ -1,8 +1,6 @@
-<?php /* Детальная страница скриншота */ ?>
-
 <?php
-require '../models/ScreenshotModel.php';
-$uuid = $_GET['uuid'];
+/** @var $params */
+$screenshot = $params['screenshot'][0];
 ?>
 
 <!DOCTYPE html>
@@ -12,17 +10,15 @@ $uuid = $_GET['uuid'];
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
     <title>Shoot</title>
 </head>
 <body>
-<?php
-$screenshot = (new ScreenshotModel())->getScreenshotByUUID($uuid);
-?>
-<?php require "../resources/templates/modal.php" ?>
+
+<?php require "views/modal.php" ?>
 
 <div class="container">
-    <?php require "../resources/templates/header.php" ?>
+    <?php require "views/header.php" ?>
     <div class="detail-information">
         <img class="detail-information__poster"
              src="data:image/jpeg;base64, <?= base64_encode($screenshot['src']) ?>"
@@ -33,7 +29,7 @@ $screenshot = (new ScreenshotModel())->getScreenshotByUUID($uuid);
     </div>
 
 </div>
-<?php require "../resources/templates/footer.php" ?>
-<script src="/public/js/script.js"></script>
+<?php require "views/footer.php" ?>
+<script src="../../js/script.js"></script>
 </body>
 </html>

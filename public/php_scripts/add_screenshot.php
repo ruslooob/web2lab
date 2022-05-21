@@ -1,6 +1,10 @@
 <?php
+
+
+use App\Model\ScreenshotModel;
+
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . "/models/ScreenshotModel.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/ScreenshotModel.php";
 
 $screenshotModel = new ScreenshotModel();
 
@@ -17,5 +21,3 @@ $ext = explode('.',  $fileName)[1];
 $screenshotModel->saveScreenshot($src, $ext, $userId, $description);
 
 header("Refresh:0; url=/");
-
-?>

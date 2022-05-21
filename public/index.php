@@ -1,50 +1,43 @@
-<?php session_start(); ?>
-
-
 <?php
-require '../models/DbModel.php';
-require "../models/ScreenshotModel.php";
-?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Shoot</title>
-</head>
-<body>
-<?php require "../resources/templates/modal.php" ?>
-<div class="wrapper">
-    <div class="container">
-        <?php require "../resources/templates/header.php" ?>
-        <?php $screenshots = (new ScreenshotModel())->getFirstScreenshots(); ?>
-        <main class="main-content">
-            <div class="cards">
-                <?php foreach ($screenshots as $screenshot): ?>
-                    <div class="card">
-                        <a href="detail.php?uuid=<?php echo $screenshot['uuid'] ?>">
-                            <img src="data:image/jpeg;base64, <?php echo base64_encode($screenshot['src']) ?>"
-                                 height="300px" width="250px"/>
-                            <div class="card__info">
-                                <span class="card__upload-date"> <?php echo $screenshot['upload_date'] ?> </span>
-                            </div>
-                        </a>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-            <?php $lastId = $screenshots[count($screenshots) - 1]['id'] ?>
-            <!-- передаем id последнего прогруженного обзора -->
-            <a class="btn btn-load-more"
-               last-screenshot-id="<?= $lastId ?>">
-                Показать еще
-            </a>
-            <script src="js/load_more.js"></script>
-        </main>
-    </div>
-    <?php require "../resources/templates/footer.php" ?>
-</div>
-<script src="js/script.js"></script>
-</body>
+require_once '../vendor/autoload.php';
+
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\Loader\YamlFileLoader;
+use Symfony\Component\Routing\Matcher\UrlMatcher;
+use Symfony\Component\Routing\RequestContext;
+
+$request = Request::createFromGlobals();
+$session = new Session();
+$session->start();
+$request->setSession($session);
+
+$fileLocator = new FileLocator([__DIR__ . '/../config']);
+$loader = new YamlFileLoader($fileLocator);
+$routes = $loader->load('routes.yaml');
+
+$context = new RequestContext('/');
+
+$matcher = new UrlMatcher($routes, $context);
+try {
+    $route = $matcher->matchRequest($request);
+    list($controllerName, $actionName) = explode("::", $route['_controller']);
+    $controller = new $controllerName($request);
+    $response = $controller->$actionName($route);
+
+    if (!$response instanceof Response) {
+        error_log('Ошибка: неверный ответ от контролера');
+        $response = new Response('Ошибка: неверный ответ от контролера', 500);
+    }
+} catch (ResourceNotFoundException $exception) {
+    error_log($exception);
+    $response = new Response('Страница не найдена', 404);
+} catch (Exception $exception) {
+    error_log($exception);
+    $response = new Response('Ошибка: ' . $exception->getMessage(), 500);
+}
+$response->send();

@@ -310,7 +310,7 @@ input:invalid {
     color: black;
 }
 
-form.create-screenshot {
+form.create-screenshot-form {
     justify-self: center;
     width: 200px;
 }

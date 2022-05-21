@@ -98,7 +98,6 @@ document.addEventListener('DOMContentLoaded', function () {
     signUpEmail.addEventListener('input', function (e) {
         const _this = e.target;
         const validity = _this.validity;
-        console.log(validity);
 
         if (validity.valueMissing) {
             _this.setCustomValidity('Поле обязательно для заполнения');
@@ -171,13 +170,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-
     const signInForm = docGet('.sign-in__form');
 
     signInForm.addEventListener('submit', function (e) {
         e.preventDefault();
         let authForm = new FormData(signInForm);
-        fetch('/auth.php', {
+        fetch('/login', {
             method: 'POST',
             body: authForm
         }).then(response => response.json())
@@ -197,19 +195,21 @@ document.addEventListener('DOMContentLoaded', function () {
     signUpForm.addEventListener('submit', function (e) {
         e.preventDefault();
         let registerForm = new FormData(signUpForm);
-        fetch('/register.php', {
+        fetch('/register', {
             method: 'POST',
             body: registerForm
         })
-            .then(response => response.json())
+            .then(response => {
+                console.log(response);
+                return response.json();
+            })
             .then(result => {
                 if (result.errors) {
                     alert(result.errors);
                 } else {
                     window.location.reload();
                 }
-            }).catch(error => console.log(error)
-        );
+            }).catch(error => console.log(error));
     });
 
 

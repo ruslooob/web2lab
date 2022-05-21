@@ -1,5 +1,8 @@
 <?php
-require "models/UserModel.php";
+
+
+use App\Model\UserModel;
+
 
 header('Content-Type: application/json');
 
@@ -11,9 +14,7 @@ $phone = $_POST['phone'];
 $isAgreeWithPrivatePolicy = $_POST['isAgreeWithPrivatePolicy'];
 
 echo "$login $password $repeatPassword $email $phone $isAgreeWithPrivatePolicy";
-
 $userModel = new UserModel();
-
 if (strlen($login) < 5 || strlen($login) > 15) {
     $errors[] = "Длина логина должна быть больше 4 и меньше 16 символов";
 }
@@ -49,5 +50,6 @@ if ($userId == false) {
 session_start();
 $_SESSION["userId"] = $userModel->getUserIdByLogin($login);
 $_SESSION["userLogin"] = $login;
+
 
 echo json_encode(['success' => true], JSON_UNESCAPED_UNICODE);

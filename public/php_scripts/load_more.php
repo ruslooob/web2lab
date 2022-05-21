@@ -1,5 +1,8 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'] . '/models/ScreenshotModel.php';
+
+use Model\ScreenshotModel;
+
+require $_SERVER['DOCUMENT_ROOT'] . '/Model/ScreenshotModel.php';
 $offset = $_GET['offset'];
 
 $screenshots = (new ScreenshotModel())->getScreenshotsByOffset($offset);
@@ -7,7 +10,7 @@ $screenshots = (new ScreenshotModel())->getScreenshotsByOffset($offset);
 
 <?php foreach ($screenshots as $screenshot): ?>
     <div class="card">
-        <a class="card__link" href="/public/detail.php?uuid=<?= $screenshot['uuid'] ?>">
+        <a class="card__link" href="/src/php_scriptstail.php?uuid=<?= $screenshot['uuid'] ?>">
             <img src="data:image/jpeg;base64, <?= base64_encode($screenshot['src']) ?>"
                  class="img-<?= $screenshot['id'] ?>"
                  alt="Нет фото"/>
